@@ -16,7 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TicketPriceCalculator" />
+
+        <activity android:name=".TicketPriceCalculator">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.app.MainActivity" />
+        </activity>
+
     </application>
 
 </manifest>

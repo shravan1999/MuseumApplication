@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
     ListView listView;
+
     String [] museumList = {"Museum of Modern Art","Princeton University Art Museum", "Metropolitan Museum of Art", "American Museum of Natural History"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +52,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
     }
 }
