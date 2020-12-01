@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#03071C">
+
+    <TextView
+        android:id="@+id/ticketPrice"
+        android:layout_width="224dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="216dp"
+        android:hint="Ticket Price  $"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#D0FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintVertical_bias="0.119" />
+
+    <TextView
+        android:id="@+id/sales_tax"
+        android:layout_width="224dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="64dp"
+        android:hint="Sales Tax : $"
+        android:textAlignment="center"
+        android:textColorHint="#D0FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/ticketPrice"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/ticketPrice"
+        app:layout_constraintTop_toTopOf="@+id/ticketPrice" />
+
+    <TextView
+        android:id="@+id/ticket_total"
+        android:layout_width="224dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="64dp"
+        android:hint="Ticket Total : $"
+        android:textAlignment="center"
+        android:textColorHint="#E9FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/sales_tax"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/sales_tax"
+        app:layout_constraintTop_toTopOf="@+id/sales_tax"
+        app:layout_constraintVertical_bias="0.041" />
+
+    <TextView
+        android:id="@+id/museumTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Museum"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#C4FFFFFF"
+        android:textIsSelectable="false"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="203dp"
+        android:layout_height="216dp"
+        android:outlineProvider="none"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.166"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/senior_text"
+        android:layout_width="103dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Senior $"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/Adult_text"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/Adult_text"
+        app:layout_constraintTop_toTopOf="@+id/Adult_text" />
+
+    <EditText
+        android:id="@+id/Adult_text"
+        android:layout_width="103dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=" Adult $"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/ticketPrice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintVertical_bias="0.006" />
+
+    <EditText
+        android:id="@+id/child_text"
+        android:layout_width="103dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=" Child $"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/ticketPrice"
+        app:layout_constraintEnd_toEndOf="@+id/Adult_text"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/senior_text"
+        app:layout_constraintTop_toTopOf="@+id/senior_text" />
+
+    <Spinner
+        android:id="@+id/adult_prices"
+        android:layout_width="100dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/senior_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Adult_text"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintVertical_bias="0.625" />
+
+    <Spinner
+        android:id="@+id/senior_prices"
+        android:layout_width="100dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/senior_text"
+        app:layout_constraintEnd_toEndOf="@+id/adult_prices"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/adult_prices"
+        app:layout_constraintTop_toTopOf="@+id/adult_prices"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Spinner
+        android:id="@+id/child_prices"
+        android:layout_width="100dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/ticketPrice"
+        app:layout_constraintEnd_toEndOf="@+id/senior_prices"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Adult_text"
+        app:layout_constraintTop_toBottomOf="@+id/senior_prices"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
