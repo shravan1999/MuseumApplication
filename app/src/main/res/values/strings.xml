@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">app</string>
-    <string name="child_price_text">Child \t\t $</string>
+    <string name="app_name">Museum Scheduler</string>
+    <string name="child_price_text">Student\t\t $</string>
     <string name="senior_price_text">Senior\t\t$</string>
     <string name="adult_price_text">Adult \t\t $</string>
     <string name="ticket_total">Ticket Total $</string>
     <string name="sales_tax">Sales Tax $</string>
     <string name="total_price">Total Price $</string>
+    <string name="app_introduction">Select a Museum to get started!</string>
 </resources>
