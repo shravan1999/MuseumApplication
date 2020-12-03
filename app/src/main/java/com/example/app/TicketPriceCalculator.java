@@ -5,9 +5,9 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,12 +15,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.net.URI;
-
-public class TicketPriceCalculator extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class TicketPriceCalculator extends AppCompatActivity {
     TextView museumTitle;
     ImageButton image;
     Spinner adult_amount, child_amount, senior_amount;
+    TextView ticketPrice, salesTax, ticketTotal, adult_text, senior_text, child_text;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +30,46 @@ public class TicketPriceCalculator extends AppCompatActivity implements AdapterV
         museumTitle = (TextView) findViewById(R.id.museumTextView);
         String museumTitleTemp = this.getIntent().getStringExtra("clicked");
         this.museumTitle.setText(museumTitleTemp);
+
+        this.adult_text = (TextView) findViewById(R.id.adult_text);
+        this.senior_text = (TextView) findViewById(R.id.senior_text);
+        this.child_text = (TextView) findViewById(R.id.child_text);
+
+        this.setInitialPrices(museumTitleTemp);
         this.createImages(museumTitleTemp);
         Toast.makeText(this, "Maximum of 5 tickets for each!!", Toast.LENGTH_SHORT).show();
+
+        this.ticketPrice = (TextView) findViewById(R.id.ticketPrice);
+        this.ticketPrice.setTextColor(Color.WHITE);
+        this.ticketTotal  = (TextView)findViewById(R.id.ticket_total);
+        this.ticketTotal.setTextColor(Color.WHITE);
+        this.salesTax = (TextView)findViewById(R.id.sales_tax);
+        this.salesTax.setTextColor(Color.WHITE);
 
         this.adult_amount = (Spinner) findViewById(R.id.adult_prices);
         this.child_amount = (Spinner) findViewById(R.id.child_prices);
         this.senior_amount = (Spinner) findViewById(R.id.senior_prices);
+
+        AdapterView.OnItemSelectedListener itemSelect = new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                changeTicketPrices();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+
+        };
+
+    this.adult_amount.setOnItemSelectedListener(itemSelect);
+    this.senior_amount.setOnItemSelectedListener(itemSelect);
+    this.child_amount.setOnItemSelectedListener(itemSelect);
+
        String amount [] = {"0", "1", "2", "3", "4", "5"};
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(
                 this, R.layout.checked_text, amount);
@@ -43,11 +77,96 @@ public class TicketPriceCalculator extends AppCompatActivity implements AdapterV
         this.adult_amount.setAdapter(adapter);
         this.senior_amount.setAdapter(adapter);
         this.child_amount.setAdapter(adapter);
+        System.out.println("Test Hello");
 
 
 
 
+    }
 
+    private void setInitialPrices(String museumTitleTemp) {
+
+        switch(museumTitleTemp){
+
+            case "Museum of Modern Art":
+                this.adult_text.append(String.valueOf(Prices.MOMA_ADULT));
+                this.senior_text.append(String.valueOf(Prices.MOMA_SENIOR));
+                this.child_text.append(String.valueOf(Prices.MOMA_STUDENT));
+                break;
+            case "Princeton University Art Museum":
+                this.adult_text.append(String.valueOf(Prices.PRINCETON_ADULT));
+                this.senior_text.append(String.valueOf(Prices.PRINCETON_SENIOR));
+                this.child_text.append(String.valueOf(Prices.PRINCETON_CHILD));
+                break;
+            case  "Metropolitan Museum of Art":
+                this.adult_text.append(String.valueOf(Prices.MET_ADULT));
+                this.senior_text.append(String.valueOf(Prices.MET_SENIOR));
+                this.child_text.append(String.valueOf(Prices.MET_CHILD));
+                break;
+            case "American Museum of Natural History":
+                this.adult_text.append(String.valueOf(Prices.HISTORY_ADULT));
+                this.senior_text.append(String.valueOf(Prices.HISTORY_SENIOR));
+                this.child_text.append(String.valueOf(Prices.HISTORY_CHILD));
+                break;
+
+        }
+    }
+
+    private void changeTicketPrices() {
+
+        String text = this.adult_amount.getSelectedItem().toString();
+        int adult = Integer.valueOf(text);
+
+        String text2 = this.child_amount.getSelectedItem().toString();
+        int child =  Integer.valueOf(text2);
+
+        String text3 = this.senior_amount.getSelectedItem().toString();
+        int senior =  Integer.valueOf(text3);
+
+        String temp = this.museumTitle.getText().toString();
+
+
+        int price_tickets;
+        double total_price, tax_amount;
+
+        switch(temp){
+
+            case "Museum of Modern Art":
+                this.ticketPrice.setTextColor(Color.WHITE);
+                price_tickets = (Prices.MOMA_ADULT *adult)  + (Prices.MOMA_SENIOR * senior)  + (Prices.MOMA_STUDENT *child);
+                this.ticketPrice.setText(String.valueOf((price_tickets)));
+                tax_amount = (Prices.NY_TAX * price_tickets);
+                this.salesTax.setText(String.format("%.2f", tax_amount));
+                total_price = price_tickets  + Double.valueOf(this.salesTax.getText().toString());
+                this.ticketTotal.setText(String.format("%.2f", total_price));
+                break;
+            case "Princeton University Art Museum":
+                this.ticketPrice.setTextColor(Color.WHITE);
+                price_tickets = (Prices.PRINCETON_ADULT *adult) + (Prices.PRINCETON_SENIOR * senior)  + (Prices.PRINCETON_CHILD * child);
+                this.ticketPrice.setText(String.valueOf((price_tickets)));
+                tax_amount = (Prices.NJ_TAX * price_tickets);
+                this.salesTax.setText(String.format("%.2f", tax_amount));
+                total_price = price_tickets  + Double.valueOf(this.salesTax.getText().toString());
+                this.ticketTotal.setText(String.format("%.2f", total_price));
+                break;
+            case "Metropolitan Museum of Art":
+                price_tickets = (Prices.MET_ADULT *adult)  + (Prices.MET_SENIOR *senior)  + (Prices.MET_CHILD * child);
+                this.ticketPrice.setText(String.valueOf((price_tickets)));
+                tax_amount = (Prices.NY_TAX * price_tickets);
+                this.salesTax.setText(String.format("%.2f", tax_amount));
+                total_price = price_tickets  + Double.valueOf(this.salesTax.getText().toString());
+                this.ticketTotal.setText(String.format("%.2f", total_price));
+                break;
+            case "American Museum of Natural History":
+                price_tickets = (Prices.HISTORY_ADULT *adult) + (Prices.HISTORY_SENIOR * senior) + (Prices.HISTORY_CHILD *child);
+                this.ticketPrice.setText(String.valueOf((price_tickets)));
+                tax_amount = (Prices.NY_TAX * price_tickets);
+                this.salesTax.setText(String.format("%.2f", tax_amount));
+                total_price = price_tickets  + Double.valueOf(this.salesTax.getText().toString());
+                this.ticketTotal.setText(String.format("%.2f", total_price));
+                break;
+
+        }
     }
 
 
@@ -104,32 +223,8 @@ public class TicketPriceCalculator extends AppCompatActivity implements AdapterV
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Spinner spinner = (Spinner)findViewById(R.id.adult_prices);
-        String text = spinner.getSelectedItem().toString();
-        int adult = Integer.valueOf(text);
-        Spinner spinner2 = (Spinner)findViewById(R.id.child_prices);
-        String text2 = spinner2.getSelectedItem().toString();
-        int child =  Integer.valueOf(text2);
-        Spinner spinner3 = (Spinner)findViewById(R.id.senior_prices);
-        String text3 = spinner3.getSelectedItem().toString();
-        int senior =  Integer.valueOf(text3);
-
-        String temp = this.museumTitle.toString();
-
-        switch(temp){
-
-            case "Museum of Modern Art":
-                TextView ticketPrice = (TextView) findViewById(R.id.ticketPrice);
-                ticketPrice.setText( String.valueOf((adult  + child  + senior) * 25) );
-        }
 
 
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
 
-    }
 }
