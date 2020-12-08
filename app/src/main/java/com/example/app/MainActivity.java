@@ -1,5 +1,9 @@
 package com.example.app;
 
+/**
+ * @author Tejas Sameera, Shravan Patel
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,11 +17,21 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-
+/**
+ * Sets up the first activity of the project
+ * Ability to select from a list of museums, which would direct the user to a new activity
+ */
 public class MainActivity extends AppCompatActivity {
     ListView listView;
 
     String [] museumList = {"Museum of Modern Art","Princeton University Art Museum", "Metropolitan Museum of Art", "American Museum of Natural History"};
+
+    /**
+     * Sets up the main activity
+     * Uses a list view with an array adapter to set the choices the user can select from
+     * i.e. List of 4 different museums from NY and NJ
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, museumList){
 
+            /**
+             * Overiding this method to change the style of the list view
+             * Chnages include modifications to the text view
+             * @param position
+             * @param convertView
+             * @param parent
+             * @return
+             */
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view =super.getView(position, convertView, parent);
@@ -44,7 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
         listView.setSelector(R.color.teal_700);
 
+        //Sets up the onclick listener for the list view
+        //Sends the selection to the second activity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this, TicketPriceCalculator.class);

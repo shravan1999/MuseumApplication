@@ -1,4 +1,10 @@
 package com.example.app;
+/**
+ * @author Tejas Sameera, Shravan Patel
+ * This class defines the second activity that the user is directed to based on his/her selection from the first activity
+ * i.e. Selected museum
+ * Defined the ticker price calculation functionality
+ */
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,15 +27,22 @@ public class TicketPriceCalculator extends AppCompatActivity {
     Spinner adult_amount, child_amount, senior_amount;
     TextView ticketPrice, salesTax, ticketTotal, adult_text, senior_text, child_text;
 
-
+    /**
+     * Populates the second activity with the correct dollar values and picture associated with
+     * the selected museum
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.price_calculation);
         this.setTitle("Ticket Price Calculator");
         museumTitle = (TextView) findViewById(R.id.museumTextView);
+
+        //Received the intent (museum selection) from the first activity
         String museumTitleTemp = this.getIntent().getStringExtra("clicked");
         this.museumTitle.setText(museumTitleTemp);
+
 
         this.adult_text = (TextView) findViewById(R.id.adult_text);
         this.senior_text = (TextView) findViewById(R.id.senior_text);
@@ -37,6 +50,8 @@ public class TicketPriceCalculator extends AppCompatActivity {
 
         this.setInitialPrices(museumTitleTemp);
         this.createImages(museumTitleTemp);
+
+        //Sets the toast message
         Toast.makeText(this, "Maximum of 5 tickets for each!!", Toast.LENGTH_SHORT).show();
 
         this.ticketPrice = (TextView) findViewById(R.id.ticketPrice);
@@ -65,25 +80,27 @@ public class TicketPriceCalculator extends AppCompatActivity {
 
 
         };
-
+    //adding a listener to each spinner to allow for ticket price recalculation
     this.adult_amount.setOnItemSelectedListener(itemSelect);
     this.senior_amount.setOnItemSelectedListener(itemSelect);
     this.child_amount.setOnItemSelectedListener(itemSelect);
 
-       String amount [] = {"0", "1", "2", "3", "4", "5"};
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(
-                this, R.layout.checked_text, amount);
-        adapter.setDropDownViewResource(R.layout.spinner);
-        this.adult_amount.setAdapter(adapter);
-        this.senior_amount.setAdapter(adapter);
-        this.child_amount.setAdapter(adapter);
-        System.out.println("Test Hello");
-
-
-
+    //Creating the array adapter to allow the user to select the number of tickets for each category
+    String amount [] = {"0", "1", "2", "3", "4", "5"};
+    ArrayAdapter<String> adapter=new ArrayAdapter<String>(
+            this, R.layout.checked_text, amount);
+    adapter.setDropDownViewResource(R.layout.spinner);
+    this.adult_amount.setAdapter(adapter);
+    this.senior_amount.setAdapter(adapter);
+    this.child_amount.setAdapter(adapter);
 
     }
 
+    /**
+     *Based on the user select museum, the second activity's ticket prices text fields are set according the defined
+     *ticket value for that particular museum
+     * @param museumTitleTemp
+     */
     private void setInitialPrices(String museumTitleTemp) {
 
         switch(museumTitleTemp){
@@ -112,6 +129,11 @@ public class TicketPriceCalculator extends AppCompatActivity {
         }
     }
 
+    /**
+     * Based on the selected number of tickets, calculates the total ticket price
+     * Due to the listener created earlier, each time a user changes a single ticket selection value,
+     * the total price is updated.
+     */
     private void changeTicketPrices() {
 
         String text = this.adult_amount.getSelectedItem().toString();
@@ -129,6 +151,9 @@ public class TicketPriceCalculator extends AppCompatActivity {
         int price_tickets;
         double total_price, tax_amount;
 
+        /**
+         * Using the scraped spinner values, the total ticket price is formally calculated
+         */
         switch(temp){
 
             case "Museum of Modern Art":
@@ -169,7 +194,11 @@ public class TicketPriceCalculator extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Based on the selected museum, the image on the second activity is set to represent a picture of the actual museum
+     * an on click listener is also set up to allow the user to select the picture and be redirected to the selected museum's website
+     * @param museumTitleTemp
+     */
     private void createImages(String museumTitleTemp) {
 
         this.image = (ImageButton)findViewById(R.id.imageButton);

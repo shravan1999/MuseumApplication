@@ -1,5 +1,9 @@
 package com.example.app;
 
+/**
+ * @author Tejas Sameera, Shravan Patel
+ * Defines final variables that are used in ticket price calculations
+ */
 public class Prices {
 
     //NJ sales tax
